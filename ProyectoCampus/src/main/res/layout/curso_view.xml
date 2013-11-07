@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/notas"
+        android:id="@+id/notas"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="79dp"
+        android:layout_alignRight="@+id/asistencia"
+        android:layout_alignLeft="@+id/asistencia" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/asistencia"
+        android:id="@+id/asistencia"
+        android:layout_marginTop="37dp"
+        android:layout_below="@+id/notas"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/material"
+        android:id="@+id/material"
+        android:layout_below="@+id/asistencia"
+        android:layout_alignRight="@+id/asistencia"
+        android:layout_marginTop="50dp"
+        android:layout_alignLeft="@+id/asistencia" />
+</RelativeLayout>
