@@ -11,6 +11,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.protocol.BasicHttpContext;
 import org.apache.http.protocol.HttpContext;
+import org.inso.pam.proyectocampus.Entitys.Horario;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -18,17 +19,20 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by Christian on 6/11/13.
  */
-public class horario implements WSCliente {
+public class WSHorario implements WSCliente {
 
-    private String Rest_URL = "tables.horario";
+    private String Rest_URL = "inso.pam.ws.horario";
 
     @Override
-    public boolean GetMethod() {
+    public List findAllMethod() {
+        ArrayList<Horario> horarios = new ArrayList<Horario>();
+
         HttpClient client = new DefaultHttpClient();
         HttpContext httpContext = new BasicHttpContext();
 
@@ -53,7 +57,7 @@ public class horario implements WSCliente {
 
                 String result = builder.toString();
 
-                Log.e("RESULTADO", result);
+                Log.i("RESULTADO", result);
 
                 JSONObject jsonObject = new JSONObject(result);
                 JSONArray jsonArray = null;
@@ -65,6 +69,33 @@ public class horario implements WSCliente {
                 catch (JSONException e) {
                     jsonObject1 = jsonObject.getJSONObject("horario");
                 }
+
+                if(jsonArray == null) {
+                    Log.i("Horario", jsonObject1.toString());
+                }
+                else {
+                    for(int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject item = jsonArray.getJSONObject(i);
+                        int nHorId = item.getInt("NHorId");
+                        int nPerId = item.getJSONObject("NPerId").getInt("NPerId");
+                        int nCurId = item.getJSONObject("NCurId").getInt("NCurId");
+                        String cHorDias = item.getString("CHorDia");
+                        String cHorHoraInicio = item.getString("CHorHoraInicio");
+                        String cHorFechaInicio = item.getString("CHorFechaInicio");
+                        String cHorAmbiente = item.getString("CHorAmbiente");
+                        String cHorHoraFin = item.getString("CHorHoraFin");
+                        String cHorFechaFin = item.getString("CHorFechaFin");
+
+                        Horario horario = new Horario(nHorId,nPerId,nCurId,cHorDias,cHorHoraInicio,cHorFechaInicio,cHorAmbiente,cHorHoraFin,cHorFechaFin);
+                        horarios.add(horario);
+                        //Log.i("JSONOBJECT GET", item.toString());
+                        Log.i("Horario" + i, horario.toString());
+                    }
+
+                }
+            }
+            else {
+                Log.i("STATUS = ", String.valueOf(statusCode));
             }
         }
         catch (ClientProtocolException e) {
@@ -77,26 +108,26 @@ public class horario implements WSCliente {
             Log.e("ERROR JSON", e.getMessage());
         }
 
-        return false;
+        return horarios;
     }
 
     @Override
-    public List FindAllMethod() {
+    public List searchByMethod(String parameter, String value) {
         return null;
     }
 
     @Override
-    public List FindMethod(String parameter, String value) {
-        return null;
-    }
-
-    @Override
-    public boolean InsertMethod() {
+    public boolean insertMethod(Object horario) {
         return false;
     }
 
     @Override
-    public boolean DeleteMethod() {
+    public boolean deleteMethod(int id) {
+        return false;
+    }
+
+    @Override
+    public boolean updateMethod(Object object) {
         return false;
     }
 }

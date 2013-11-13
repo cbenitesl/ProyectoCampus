@@ -1,15 +1,23 @@
 package org.inso.pam.proyectocampus;
 
-import android.content.Intent;
+import android.content.Context;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+
+import org.inso.pam.proyectocampus.Entitys.Nota;
+import org.inso.pam.proyectocampus.WSConection.WSHorario;
+import org.inso.pam.proyectocampus.WSConection.WSNota;
+
+import java.util.ArrayList;
 
 public class MainActivity extends ActionBarActivity {
 
@@ -29,6 +37,7 @@ public class MainActivity extends ActionBarActivity {
 
         login = (Button) findViewById(R.id.btn_logIn);
 
+        /*
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -39,6 +48,23 @@ public class MainActivity extends ActionBarActivity {
                 String i;
             }
         });
+        */
+
+        /*
+        FindAllTask test = new FindAllTask();
+        test.execute();*/
+
+        /*
+        InsertTask insert = new InsertTask();
+        insert.execute();*/
+
+        /*
+        UpdateTask update = new UpdateTask();
+        update.execute();*/
+
+        DeleteTask delete = new DeleteTask();
+        delete.execute();
+
     }
 
     @Override
@@ -78,5 +104,75 @@ public class MainActivity extends ActionBarActivity {
 
     private String loginToken() {
         return "1234";
+    }
+
+    class FindAllTask extends AsyncTask<Void, Void, ArrayList> {
+        @Override
+        protected ArrayList doInBackground(Void... voids) {
+            WSHorario hor = new WSHorario();
+            WSNota not = new WSNota();
+
+            Log.i("Start", "Testing");
+            //hor.findAllMethod();
+            not.findAllMethod();
+            return null;
+        }
+    }
+
+    class InsertTask extends AsyncTask<Void, Void, ArrayList> {
+        @Override
+        protected ArrayList doInBackground(Void... voids) {
+            WSHorario hor = new WSHorario();
+            WSNota not = new WSNota();
+            //boolean resp = hor.insertMethod(new Horario(13,3,"Viernes", "09:00", "2013/11/08","Laboratorio1", "2013/11/08","14:00"));
+            boolean resp = not.insertMethod(new Nota(1,5,"2013/11/09", "15"));
+            Context context = getApplicationContext();
+            String mensaje;
+            if(resp) {
+                mensaje = "Insertado";
+                Log.i("Funciono", "Yeahhhhhhhhhh");
+            }
+            else {
+                Log.e("Error", "¿?");
+                mensaje = "Error";
+            }
+            //Toast toast = Toast.makeText(context, mensaje, Toast.LENGTH_LONG);
+            //toast.show();
+            return null;
+        }
+    }
+
+    class UpdateTask extends AsyncTask<Void, Void, ArrayList> {
+
+        @Override
+        protected ArrayList doInBackground(Void... voids) {
+            WSNota not = new WSNota();
+            boolean resp = not.updateMethod(new Nota(3,1,5,"2013/11/10", "20"));
+            if(resp) {
+                Log.i("It Wotks!", "XD!");
+            }
+            else {
+                Log.e("Error", "¿?");
+            }
+
+            return null;
+        }
+    }
+
+    class DeleteTask extends AsyncTask<Void, Void, ArrayList> {
+
+        @Override
+        protected ArrayList doInBackground(Void... voids) {
+            WSNota not = new WSNota();
+            boolean resp = not.deleteMethod(3);
+
+            if(resp) {
+                Log.i("It Wotks!", "XD!");
+            }
+            else {
+                Log.e("Error", "¿?");
+            }
+            return null;
+        }
     }
 }

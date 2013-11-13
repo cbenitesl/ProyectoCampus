@@ -7,15 +7,15 @@ import java.util.List;
  */
 public interface WSCliente {
 
-    public String URLServer = "http://192.168.0.15:8084/PAMProyecto/webresources/";
+    public String URLServer = "http://192.168.0.15:8084/PAMProject/webresources/";
 
-    public abstract boolean GetMethod();
+    public abstract List findAllMethod();
 
-    public abstract List FindAllMethod();
+    public abstract List searchByMethod(String parameter, String value);
 
-    public abstract List FindMethod(String parameter, String value);
+    public abstract boolean insertMethod(Object object);
 
-    public abstract boolean InsertMethod();
+    public abstract boolean deleteMethod(int id);
 
-    public abstract boolean DeleteMethod();
+    public abstract boolean updateMethod(Object object);
 }
