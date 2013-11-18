@@ -1,6 +1,7 @@
 package org.inso.pam.proyectocampus;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -37,18 +38,14 @@ public class MainActivity extends ActionBarActivity {
 
         login = (Button) findViewById(R.id.btn_logIn);
 
-        /*
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                token = loginToken();
-                Intent principal = new Intent(getBaseContext(), PrincipalLandingActivity.class);
-                principal.putExtra("token",token);
-                startActivity(principal);
-                String i;
+                Intent intent = new Intent(getApplicationContext(), PrincipalLandingActivity.class);
+                startActivity(intent);
             }
         });
-        */
+
 
         /*
         FindAllTask test = new FindAllTask();
@@ -62,8 +59,8 @@ public class MainActivity extends ActionBarActivity {
         UpdateTask update = new UpdateTask();
         update.execute();*/
 
-        DeleteTask delete = new DeleteTask();
-        delete.execute();
+        /*DeleteTask delete = new DeleteTask();
+        delete.execute();*/
 
     }
 

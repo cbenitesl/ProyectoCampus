@@ -14,6 +14,10 @@ public class Horario {
     private String cHorHoraFin;
     private String cHorFechaFin;
 
+    public Horario(){
+
+    }
+
     public Horario(int cDocNombe, int nCurId, String cHorDias, String cHorHoraInicio, String cHorFechaInicio, String cHorAmbiente, String cHorHoraFin, String cHorFechaFin) {
         this.nHorId = 0;
         this.cDocNombe = cDocNombe;
